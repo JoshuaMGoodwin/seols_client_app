@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="seols_red">#8D3528</color>
+    <color name="seols_blue">#144070</color>
+    <color name="seols_red_light">#888D3528</color>
+    <color name="seols_blue_light">#88144070</color>
+</resources>

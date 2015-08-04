@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Southeastern Ohio Legal Services</string>
+    <string name="title_section1">Home</string>
+    <string name="title_section2">DIY Forms</string>
+    <string name="title_section3">Legal Info</string>
+    <string name="title_section4">Local Offices</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">Example action</string>
+    <string name="action_settings">Settings</string>
+    <string name="welcome">Welcome to the mobile home of Southeastern Ohio Legal Services! \n\nProviding free legal advice and representation to Southeastern Ohio</string>
+    <string name="apply">Apply for Services</string>
+    <string name="contact_local_office">Contact your Local Office</string>
+    <string name="legal_information">Legal Information</string>
+    <string name="diy_forms">Do-it-Yourself Forms</string>
+    <string name="client_signin">Sign In (Clients Only)</string>
+    <string name="actionbar_client_signin">Sign In</string>
+</resources>
