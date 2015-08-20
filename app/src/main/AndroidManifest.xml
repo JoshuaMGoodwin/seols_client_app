@@ -17,7 +17,8 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme"
+        android:name=".MainApplication">
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
@@ -32,6 +33,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.USER_PRESENT" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
         <receiver android:name="com.parse.ParsePushBroadcastReceiver"
@@ -51,5 +53,7 @@
             </intent-filter>
         </receiver>
     </application>
+    <meta-data android:name="com.parse.push.notification_icon"
+        android:resource="@drawable/ic_launcher"/>
 
 </manifest>
