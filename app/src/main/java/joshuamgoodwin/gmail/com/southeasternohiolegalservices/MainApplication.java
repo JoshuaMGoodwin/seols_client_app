@@ -26,5 +26,6 @@ public class MainApplication extends Application {
         super.onCreate();
         Parse.initialize(this, getString(R.string.parse_app_id), getString(R.string.parse_client_key));
         ParseInstallation.getCurrentInstallation().saveInBackground();
+
     }
 }

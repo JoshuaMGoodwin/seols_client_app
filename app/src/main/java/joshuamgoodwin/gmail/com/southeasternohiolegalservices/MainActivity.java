@@ -1,6 +1,10 @@
 package joshuamgoodwin.gmail.com.southeasternohiolegalservices;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -19,6 +23,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import com.parse.Parse;
 import com.parse.ParseInstallation;
+import com.parse.ParsePush;
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -45,11 +50,10 @@ public class MainActivity extends ActionBarActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
-
-
-
-
+        askAboutPush();
     }
+
+
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
@@ -108,6 +112,61 @@ public class MainActivity extends ActionBarActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private boolean isFirstRun() {
+        // see if this is the first time the app run
+        SharedPreferences sp = PreferenceManager
+                .getDefaultSharedPreferences(this);
+        if (!sp.getBoolean("firstTime", false)) {
+            sp.edit().putBoolean("firstTime", true).apply();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private void askAboutPush() {
+        // ask the user if they want to enable push notifications
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // Add the buttons
+        builder.setPositiveButton("Enable", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked Enable button
+                // subscribe to Parse pushEnabled channel
+                ParsePush.subscribeInBackground(getString(R.string.pushEnabled));
+                dialog.dismiss();
+                canChangeChoiceDialog("disable");
+            }
+        });
+        builder.setNegativeButton("Don't Enable", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked Don't Enable button
+                ParsePush.subscribeInBackground(getString(R.string.pushDisabled));
+                dialog.dismiss();
+
+                canChangeChoiceDialog("enable");
+            }
+        });
+        builder.setTitle("Push Notifications");
+        builder.setMessage("This app would like to occasionally provide you with notifications about important changes in the law and other news. Would you like to enable these notifications?");
+        // Create the AlertDialog
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void canChangeChoiceDialog(String decision) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("You can change your mind and " + decision + " push notifications at any time through the settings menu.")
+                .setTitle("Changing Notification Settings")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     /**

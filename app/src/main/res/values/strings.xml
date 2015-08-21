@@ -3,6 +3,10 @@
 
     <string name="app_name">Southeastern Ohio Legal Services</string>
 
+    // Parse channels
+    <string name="pushEnabled">PushEnabled</string>
+    <string name="pushDisabled">PushDisabled</string>
+
     <!-- navigation drawer titles !-->
     <string name="title_section1">Home</string>
     <string name="title_section2">DIY Forms</string>
@@ -21,5 +25,42 @@
     <string name="contact_local_office">Locate your Local Office</string>
     <string name="legal_information">Legal Advice and Information</string>
     <string name="diy_forms">Do-it-Yourself Forms</string>
+
+    <!-- county selection layouts !-->
+    <string name="countySelection">Which counties would you like to receive information about? Choose as many as you like</string>
+    <string-array name="countyNames">
+        <string value="Adams">Adams</string>
+        <string value="Athens">Athens</string>
+        <string value="Belmont">Belmont</string>
+        <string value="Carroll">Carroll</string>
+        <string value="Coshocton">Coshocton</string>
+        <string value="Fairfield">Fairfield</string>
+        <string value="Fayette">Fayette</string>
+        <string value="Gallia">Gallia</string>
+        <string value="Guernsey">Guernsey</string>
+        <string value="Harrison">Harrison</string>
+        <string value="Hocking">Hocking</string>
+        <string value="Holmes">Holmes</string>
+        <string value="Jackson">Jackson</string>
+        <string value="Jefferson">Jefferson</string>
+        <string value="Knox">Knox</string>
+        <string value="Lawrence">Lawrence</string>
+        <string value="Licking">Licking</string>
+        <string value="Meigs">Meigs</string>
+        <string value="Monroe">Monroe</string>
+        <string value="Morgan">Morgan</string>
+        <string value="Muskingum">Muskingum</string>
+        <string value="Noble">Noble</string>
+        <string value="Perry">Perry</string>
+        <string value="Pickaway">Pickaway</string>
+        <string value="Pike">Pike</string>
+        <string value="Ross">Ross</string>
+        <string value="Scioto">Scioto</string>
+        <string value="Tuscarawas">Tuscarawas</string>
+        <string value="Vinton">Vinton</string>
+        <string value="Washington">Washington</string>
+        <string value="Other">Other</string>
+    </string-array>
+    <string name="subscribeToCounties">Choose Counties</string>
 
 </resources>
