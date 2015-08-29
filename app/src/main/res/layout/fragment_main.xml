@@ -24,6 +24,7 @@
         />
 
     <Button
+        android:id="@+id/request_services"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/apply"

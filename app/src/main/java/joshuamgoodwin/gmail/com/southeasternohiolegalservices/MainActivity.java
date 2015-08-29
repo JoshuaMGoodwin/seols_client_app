@@ -9,20 +9,13 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
-import com.parse.Parse;
-import com.parse.ParseInstallation;
 import com.parse.ParsePush;
 
 public class MainActivity extends ActionBarActivity
@@ -50,7 +43,9 @@ public class MainActivity extends ActionBarActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
-        askAboutPush();
+        // ask the user about push notifications if is the first run
+        if(isFirstRun()) askAboutPush();
+        changeFragments(new MainActivityFragment());
     }
 
 
@@ -108,14 +103,20 @@ public class MainActivity extends ActionBarActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            changeFragments(new SettingsFragment());
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
+        /**
+         * Method to see if this is the first time the user has run the
+         * app by using shared preferences.
+         *
+         * @return true if this is the first time
+         */
     private boolean isFirstRun() {
-        // see if this is the first time the app run
         SharedPreferences sp = PreferenceManager
                 .getDefaultSharedPreferences(this);
         if (!sp.getBoolean("firstTime", false)) {
@@ -126,8 +127,12 @@ public class MainActivity extends ActionBarActivity
         }
     }
 
+        /**
+         * Method that genereates an alertDialog to ask the user whether they want to
+         * enable push notifications. Run if this is the user's first time using
+         * the app to allow user to opt in to push notifications.
+         */
     private void askAboutPush() {
-        // ask the user if they want to enable push notifications
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         // Add the buttons
@@ -137,7 +142,8 @@ public class MainActivity extends ActionBarActivity
                 // subscribe to Parse pushEnabled channel
                 ParsePush.subscribeInBackground(getString(R.string.pushEnabled));
                 dialog.dismiss();
-                canChangeChoiceDialog("disable");
+                // show county selection fragment so user can subscribe to counties
+                changeFragments(new CountySelectionFragment());
             }
         });
         builder.setNegativeButton("Don't Enable", new DialogInterface.OnClickListener() {
@@ -145,7 +151,6 @@ public class MainActivity extends ActionBarActivity
                 // User clicked Don't Enable button
                 ParsePush.subscribeInBackground(getString(R.string.pushDisabled));
                 dialog.dismiss();
-
                 canChangeChoiceDialog("enable");
             }
         });
@@ -156,6 +161,13 @@ public class MainActivity extends ActionBarActivity
         dialog.show();
     }
 
+        /**
+         * Method that shows an alertDialog reminding the user that they can either enable
+         * or disable push notifications in the future through the settings options.
+         *
+         * @param decision either "enable" or "disable", the opposite of the user's current
+         *                 push notification preference
+         */
     private void canChangeChoiceDialog(String decision) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("You can change your mind and " + decision + " push notifications at any time through the settings menu.")
@@ -167,6 +179,18 @@ public class MainActivity extends ActionBarActivity
                 });
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    /**
+     * Method that changes the fragment displayed in the main container.
+     *
+     * @param fragmentName the name of the fragment to switch the main view to
+     */
+    public void changeFragments(Fragment fragmentName) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, fragmentName)
+                .commit();
     }
 
     /**
@@ -192,13 +216,6 @@ public class MainActivity extends ActionBarActivity
         }
 
         public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            return rootView;
         }
 
         @Override

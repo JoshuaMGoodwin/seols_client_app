@@ -29,38 +29,45 @@
     <!-- county selection layouts !-->
     <string name="countySelection">Which counties would you like to receive information about? Choose as many as you like</string>
     <string-array name="countyNames">
-        <string value="Adams">Adams</string>
-        <string value="Athens">Athens</string>
-        <string value="Belmont">Belmont</string>
-        <string value="Carroll">Carroll</string>
-        <string value="Coshocton">Coshocton</string>
-        <string value="Fairfield">Fairfield</string>
-        <string value="Fayette">Fayette</string>
-        <string value="Gallia">Gallia</string>
-        <string value="Guernsey">Guernsey</string>
-        <string value="Harrison">Harrison</string>
-        <string value="Hocking">Hocking</string>
-        <string value="Holmes">Holmes</string>
-        <string value="Jackson">Jackson</string>
-        <string value="Jefferson">Jefferson</string>
-        <string value="Knox">Knox</string>
-        <string value="Lawrence">Lawrence</string>
-        <string value="Licking">Licking</string>
-        <string value="Meigs">Meigs</string>
-        <string value="Monroe">Monroe</string>
-        <string value="Morgan">Morgan</string>
-        <string value="Muskingum">Muskingum</string>
-        <string value="Noble">Noble</string>
-        <string value="Perry">Perry</string>
-        <string value="Pickaway">Pickaway</string>
-        <string value="Pike">Pike</string>
-        <string value="Ross">Ross</string>
-        <string value="Scioto">Scioto</string>
-        <string value="Tuscarawas">Tuscarawas</string>
-        <string value="Vinton">Vinton</string>
-        <string value="Washington">Washington</string>
-        <string value="Other">Other</string>
+        <item value="Adams">Adams</item>
+        <item value="Athens">Athens</item>
+        <item value="Belmont">Belmont</item>
+        <item value="Carroll">Carroll</item>
+        <item value="Coshocton">Coshocton</item>
+        <item value="Fairfield">Fairfield</item>
+        <item value="Fayette">Fayette</item>
+        <item value="Gallia">Gallia</item>
+        <item value="Guernsey">Guernsey</item>
+        <item value="Harrison">Harrison</item>
+        <item value="Hocking">Hocking</item>
+        <item value="Holmes">Holmes</item>
+        <item value="Jackson">Jackson</item>
+        <item value="Jefferson">Jefferson</item>
+        <item value="Knox">Knox</item>
+        <item value="Lawrence">Lawrence</item>
+        <item value="Licking">Licking</item>
+        <item value="Meigs">Meigs</item>
+        <item value="Monroe">Monroe</item>
+        <item value="Morgan">Morgan</item>
+        <item value="Muskingum">Muskingum</item>
+        <item value="Noble">Noble</item>
+        <item value="Perry">Perry</item>
+        <item value="Pickaway">Pickaway</item>
+        <item value="Pike">Pike</item>
+        <item value="Ross">Ross</item>
+        <item value="Scioto">Scioto</item>
+        <item value="Tuscarawas">Tuscarawas</item>
+        <item value="Vinton">Vinton</item>
+        <item value="Washington">Washington</item>
+        <item value="Other">Other</item>
     </string-array>
     <string name="subscribeToCounties">Choose Counties</string>
+    <string name="confirmation_toast">Your selections have been saved</string>
+
+    <!-- settings layout strings!-->
+    <string name="settings">Settings</string>
+    <string name="push_notifications">Push Notifications</string>
+    <string name="home_county">What County You Live In:</string>
+
 
 </resources>
