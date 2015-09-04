@@ -30,7 +30,7 @@ public class MainActivityFragment extends Fragment {
     private void changeFragment(Fragment fragmentName) {
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.container, new CountySelectionFragment())
+                .replace(R.id.container, fragmentName)
                 .commit();
     }
 

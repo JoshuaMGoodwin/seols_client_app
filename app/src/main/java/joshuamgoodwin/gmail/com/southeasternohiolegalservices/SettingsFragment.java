@@ -15,6 +15,7 @@ import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.parse.ParseInstallation;
@@ -30,6 +31,7 @@ import java.util.List;
 public class SettingsFragment extends Fragment {
 
     private Switch pushSwitch;
+    private TextView selectedCounties;
     private ToggleButton pushToggle;
     private Spinner homeCounty;
     private String[] counties;
@@ -55,6 +57,16 @@ public class SettingsFragment extends Fragment {
             pushToggle.setOnCheckedChangeListener(pushSelector);
         }
 
+        selectedCounties = (TextView) rootView.findViewById(R.id.selectedCounties);
+        adjustCountySelectionColor();
+
+        selectedCounties.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (arePushesEnabled()) showCountyDialog();
+            }
+        });
+
         homeCounty = (Spinner) rootView.findViewById(R.id.home_county_spinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
@@ -70,11 +82,14 @@ public class SettingsFragment extends Fragment {
     private void pushEnabled() {
         ParsePush.subscribeInBackground(getString(R.string.pushEnabled));
         ParsePush.unsubscribeInBackground(getString(R.string.pushDisabled));
+        adjustCountySelectionColor();
+
     }
 
     private void pushDisabled() {
         ParsePush.unsubscribeInBackground(getString(R.string.pushEnabled));
         ParsePush.subscribeInBackground(getString(R.string.pushDisabled));
+        adjustCountySelectionColor();
     }
 
     private void showCountyFragment() {
@@ -97,6 +112,11 @@ public class SettingsFragment extends Fragment {
 
     private Dialog countySelectionDialog() {
         final ArrayList mSelectedItems = new ArrayList();  // Where we track the selected items
+        // add currently selected counties to mSelectedItems
+        for (int i = 0; i < getBooleanListOfCounties().length; i++) {
+            if (getBooleanListOfCounties()[i]) mSelectedItems.add(i);
+        }
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         // Set the dialog title
         builder.setTitle(R.string.countySelection)
@@ -107,8 +127,6 @@ public class SettingsFragment extends Fragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which,
                                                 boolean isChecked) {
-                                // TODO need it to also keep the counties selected, even if
-                                // user didn't select it but it was selected by default
                                 if (isChecked) {
                                     // If the user checked the item, add it to the selected items
                                     mSelectedItems.add(which);
@@ -144,13 +162,17 @@ public class SettingsFragment extends Fragment {
             if (buttonView.isChecked()) {
                 pushEnabled();
                 //showCountyFragment();
-                Dialog showCountyDialog = countySelectionDialog();
-                showCountyDialog.show();
+                showCountyDialog();
             } else {
                 pushDisabled();
             }
         }
     };
+
+    private void showCountyDialog() {
+        Dialog showCountyDialog = countySelectionDialog();
+        showCountyDialog.show();
+    }
 
     /**
      * Unsubscribes the user from all counties in the channels
@@ -180,6 +202,14 @@ public class SettingsFragment extends Fragment {
             }
         }
         return countiesSubscribedTo;
+    }
+
+    private void adjustCountySelectionColor() {
+        if (arePushesEnabled()) {
+            selectedCounties.setTextColor(getResources().getColor(R.color.primary_dark_material_light));
+        } else {
+            selectedCounties.setTextColor(getResources().getColor(R.color.primary_text_disabled_material_light));
+        }
     }
 
     private boolean[] getBooleanListOfCounties() {
